@@ -2795,6 +2795,15 @@ const proxyRoutes = [
     },
 ];
 
+// A separate route keeps recommendation cursors, ranking and account state away
+// from the existing chronological Home timeline.
+proxyRoutes.push(window.OTDForYou.createRoute({
+    apiBase: NEW_API,
+    parseTweet,
+    getCurrentUserId,
+    setHeaders: proxyRoutes.find(route => route.path === "/1.1/statuses/home_timeline.json").beforeSendHeaders,
+}));
+
 // wrap the XMLHttpRequest
 XMLHttpRequest = function () {
     return new Proxy(new OriginalXHR(), {

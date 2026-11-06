@@ -1,9 +1,10 @@
 {
-    "name": "OldTweetDeck",
-    "description": "Returns old TweetDeck!",
+    "name": "OldTweetDeck - For You (Experimental)",
+    "description": "Classic TweetDeck with a separate experimental For You recommendations column.",
     "version": "4.4.1",
+    "version_name": "4.4.1-for-you.1",
     "manifest_version": 3,
-    "homepage_url": "https://github.com/dimdenGD/OldTweetDeck",
+    "homepage_url": "https://github.com/yunho-kim/OldTweetDeck",
     "permissions": [
         "webNavigation",
         "cookies",

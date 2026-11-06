@@ -2149,6 +2149,7 @@ document.body.addEventListener("click", function (e) {
                     INBOX: "privateMe",
                     SCHEDULED: "scheduled",
                     BOOKMARKS: "bookmarks",
+                    FORYOU: "foryou",
                 },
                 feedTypes: {
                     HOME: "home",
@@ -2167,6 +2168,7 @@ document.body.addEventListener("click", function (e) {
                     LIVEVIDEO: "livevideo",
                     EVENT: "event",
                     BOOKMARKS: "bookmarks",
+                    FORYOU: "foryou",
                 },
             }).allFeedTypes = (0, o.default)(n.feedTypes).reduce(function (e, t) {
                 return (e[n.feedTypes[t]] = !0), e;
@@ -2175,6 +2177,7 @@ document.body.addEventListener("click", function (e) {
             d.default.extendObjectWith(n.nonExhaustibleFeedTypes, [
                 [n.feedTypes.CUSTOMTIMELINE, !0],
                 [n.feedTypes.FAVORITES, !0],
+                [n.feedTypes.FORYOU, !0],
             ]),
             (n.gaplessFeedTypes = {}),
             d.default.extendObjectWith(n.gaplessFeedTypes, [
@@ -2184,6 +2187,7 @@ document.body.addEventListener("click", function (e) {
             ]),
             (n.reorderableFeedTypes = {}),
             d.default.extendObjectWith(n.reorderableFeedTypes, [
+                [n.feedTypes.FORYOU, !0],
                 [n.feedTypes.CUSTOMTIMELINE, !0],
                 [n.feedTypes.SCHEDULED, !0],
             ]),
@@ -2215,6 +2219,7 @@ document.body.addEventListener("click", function (e) {
                 ANALYTICS: "col_analytics",
                 WHATSHAPPENING: "col_whatshappening",
                 BOOKMARKS: "col_bookmarks",
+                FORYOU: "col_foryou",
                 UNKNOWN: "col_unknown",
             }),
             (n.columnMetaTypeToScribeNamespace = {}),
@@ -2324,6 +2329,13 @@ document.body.addEventListener("click", function (e) {
                         section: "",
                     },
                 ],
+                [
+                    n.columnMetaTypes.FORYOU,
+                    {
+                        page: "foryou",
+                        section: "",
+                    },
+                ],
             ]),
             (n.columnIconClasses = {
                 TWITTER: "icon-twitter-bird",
@@ -2349,6 +2361,7 @@ document.body.addEventListener("click", function (e) {
                 EVENT: "icon-magic-search",
                 WHATSHAPPENING: "icon-magic-search",
                 BOOKMARKS: "icon-bookmarks",
+                FORYOU: "icon-magic-search",
             }),
             (n.columnClasses = {
                 TWITTER: "type-twitter",
@@ -2368,6 +2381,7 @@ document.body.addEventListener("click", function (e) {
                 ANALYTICS: "column-type-analytics",
                 WHATSHAPPENING: "column-type-whatshappening",
                 BOOKMARKS: "column-type-bookmarks",
+                FORYOU: "column-type-foryou",
             }),
             (n.columnMetaTypeToIconClass = {}),
             d.default.extendObjectWith(n.columnMetaTypeToIconClass, [
@@ -2394,6 +2408,7 @@ document.body.addEventListener("click", function (e) {
                 [n.columnMetaTypes.EVENT, n.columnIconClasses.EVENT],
                 [n.columnMetaTypes.WHATSHAPPENING, n.columnIconClasses.WHATSHAPPENING],
                 [n.columnMetaTypes.BOOKMARKS, n.columnIconClasses.BOOKMARKS],
+                [n.columnMetaTypes.FORYOU, n.columnIconClasses.FORYOU],
             ]),
             (n.columnMetaTypeToClass = {}),
             d.default.extendObjectWith(n.columnMetaTypeToClass, [
@@ -2417,6 +2432,7 @@ document.body.addEventListener("click", function (e) {
                 [n.columnMetaTypes.SCHEDULED, n.columnClasses.SCHEDULED],
                 [n.columnMetaTypes.UNKNOWN, n.columnClasses.TWITTER],
                 [n.columnMetaTypes.BOOKMARKS, n.columnClasses.BOOKMARKS],
+                [n.columnMetaTypes.FORYOU, n.columnClasses.FORYOU],
             ]),
             (n.columnMetaTypeToTitleTemplateData = {}),
             d.default.extendObjectWith(n.columnMetaTypeToTitleTemplateData, [
@@ -2574,6 +2590,12 @@ document.body.addEventListener("click", function (e) {
                         title: (0, c.default)("Bookmarks", null, !0),
                     },
                 ],
+                [
+                    n.columnMetaTypes.FORYOU,
+                    {
+                        title: (0, c.default)("For You", null, !0),
+                    },
+                ],
             ]),
             (n.embeddableColumnTypes = [
                 n.columnMetaTypes.FAVORITES,
@@ -2609,6 +2631,7 @@ document.body.addEventListener("click", function (e) {
                 n.columnMetaTypes.EVENT,
                 n.columnMetaTypes.TRENDS,
                 n.columnMetaTypes.BOOKMARKS,
+                n.columnMetaTypes.FORYOU,
             ]),
             (n.clearableColumnTypes = [
                 n.columnMetaTypes.TIMELINE,
@@ -2628,6 +2651,7 @@ document.body.addEventListener("click", function (e) {
                 n.columnMetaTypes.LIVEVIDEO,
                 n.columnMetaTypes.EVENT,
                 n.columnMetaTypes.BOOKMARKS,
+                n.columnMetaTypes.FORYOU,
             ]),
             (n.actionColumnTypes = [
                 n.columnMetaTypes.INTERACTIONS,
@@ -2662,6 +2686,7 @@ document.body.addEventListener("click", function (e) {
                 n.columnMetaTypes.LIVEVIDEO,
                 n.columnMetaTypes.EVENT,
                 n.columnMetaTypes.BOOKMARKS,
+                n.columnMetaTypes.FORYOU,
             ]),
             (n.combinedColumnTypes = {}),
             d.default.extendObjectWith(n.combinedColumnTypes, [
@@ -2724,6 +2749,8 @@ document.body.addEventListener("click", function (e) {
                         return n.columnMetaTypes.WHATSHAPPENING;
                     case n.storageColumnTypes.BOOKMARKS:
                         return n.columnMetaTypes.BOOKMARKS;
+                    case n.storageColumnTypes.FORYOU:
+                        return n.columnMetaTypes.FORYOU;
                     default:
                         return 1 === i.length
                             ? n._inferColumnTypeFromFeed(i[0], e)
@@ -2841,6 +2868,7 @@ document.body.addEventListener("click", function (e) {
                 [n.feedTypes.LIVEVIDEO, n.columnMetaTypes.LIVEVIDEO],
                 [n.feedTypes.EVENT, n.columnMetaTypes.EVENT],
                 [n.feedTypes.BOOKMARKS, n.columnMetaTypes.BOOKMARKS],
+                [n.feedTypes.FORYOU, n.columnMetaTypes.FORYOU],
             ]),
             (n._inferColumnTypeFromFeed = function (e, t) {
                 var i,
@@ -3220,6 +3248,12 @@ document.body.addEventListener("click", function (e) {
                         namespace: {
                             section: "twitter",
                             component: "bookmarks",
+                        },
+                    }),
+                    (0, r.default)(e, h.default.columnMetaTypes.FORYOU, {
+                        namespace: {
+                            section: "twitter",
+                            component: "foryou",
                         },
                     }),
                     e);
@@ -30973,6 +31007,7 @@ document.body.addEventListener("click", function (e) {
                     networkactivity: 45,
                     scheduled: 960,
                     bookmarks: 4,
+                    foryou: 60,
                 },
             };
             f.activityValuePolling$.subscribe(function (t) {
@@ -31748,6 +31783,7 @@ document.body.addEventListener("click", function (e) {
                 scheduled: "scheduled",
                 search: "search",
                 bookmarks: "bookmarks",
+                foryou: "foryou",
                 useractivity: "useractivity",
                 usertimeline: "usertimeline",
                 usertweets: "usertweets",
@@ -31761,6 +31797,7 @@ document.body.addEventListener("click", function (e) {
                 useractivity: !0,
             }),
             (TD.controller.FeedPoller.CURSORED_FEED_TYPES = {
+                foryou: !0,
                 customtimeline: !0,
                 livevideo: !0,
             }),
@@ -35979,6 +36016,7 @@ document.body.addEventListener("click", function (e) {
                 (P.EVENT = "event"),
                 (P.WHATSHAPPENING = "whatshappening"),
                 (P.BOOKMARKS = "bookmarks"),
+                (P.FORYOU = "foryou"),
                 (P.columnTypeToIconClass =
                     ((k = {}),
                     (0, a.default)(k, P.TIMELINE, _.default.columnIconClasses.HOME),
@@ -36007,6 +36045,7 @@ document.body.addEventListener("click", function (e) {
                     (0, a.default)(k, P.EVENT, _.default.columnIconClasses.EVENT),
                     (0, a.default)(k, P.WHATSHAPPENING, _.default.columnIconClasses.WHATSHAPPENING),
                     (0, a.default)(k, P.BOOKMARKS, _.default.columnIconClasses.BOOKMARKS),
+                    (0, a.default)(k, P.FORYOU, _.default.columnIconClasses.FORYOU),
                     k)),
                 (P.SELF_ACCOUNTS_ONLY =
                     ((E = {}),
@@ -36016,9 +36055,11 @@ document.body.addEventListener("click", function (e) {
                     (0, a.default)(E, P.FOLLOWERS, !0),
                     (0, a.default)(E, P.TIMELINE, !0),
                     (0, a.default)(E, P.BOOKMARKS, !0),
+                    (0, a.default)(E, P.FORYOU, !0),
                     E)),
                 (P.TWITTER_GENERIC =
                     ((I = {}),
+                    (0, a.default)(I, P.FORYOU, !0),
                     (0, a.default)(I, P.TIMELINE, !0),
                     (0, a.default)(I, P.MENTIONS, !0),
                     (0, a.default)(I, P.FOLLOWERS, !0),
@@ -36035,6 +36076,7 @@ document.body.addEventListener("click", function (e) {
                     (0, a.default)(A, P.TWEETS, "usertweets"),
                     (0, a.default)(A, P.FOLLOWERS, "interactions"),
                     (0, a.default)(A, P.BOOKMARKS, "bookmarks"),
+                    (0, a.default)(A, P.FORYOU, "foryou"),
                     A)),
                 (P.NON_SELF_FEED_TYPE =
                     ((x = {}),
@@ -36065,6 +36107,7 @@ document.body.addEventListener("click", function (e) {
                     (0, a.default)(M, P.EVENT, (0, w.default)("General Election")),
                     (0, a.default)(M, P.WHATSHAPPENING, (0, w.default)("What's Happening")),
                     (0, a.default)(M, P.BOOKMARKS, (0, w.default)("Bookmarks")),
+                    (0, a.default)(M, P.FORYOU, (0, w.default)("For You")),
                     M)),
                 (P.MODAL_TITLE =
                     ((R = {}),
@@ -36087,6 +36130,7 @@ document.body.addEventListener("click", function (e) {
                     (0, a.default)(R, P.LIVEVIDEO, (0, w.default)("Add a Live Video column")),
                     (0, a.default)(R, P.EVENT, (0, w.default)("Add a General Election column")),
                     (0, a.default)(R, P.BOOKMARKS, (0, w.default)("Add a Bookmarks column")),
+                    (0, a.default)(R, P.FORYOU, (0, w.default)("Add a For You column")),
                     R)),
                 (P.MENU_ATTRIBUTION =
                     ((F = {}),
@@ -36134,6 +36178,10 @@ document.body.addEventListener("click", function (e) {
                     },
                     {
                         type: P.BOOKMARKS,
+                        service: "twitter",
+                    },
+                    {
+                        type: P.FORYOU,
                         service: "twitter",
                     },
                     {
@@ -36325,6 +36373,11 @@ document.body.addEventListener("click", function (e) {
                         O,
                         P.BOOKMARKS,
                         (0, w.default)("Add a Bookmarks column for your account")
+                    ),
+                    (0, a.default)(
+                        O,
+                        P.FORYOU,
+                        (0, w.default)("Add a For You column for your account")
                     ),
                     O)),
                 (0, b.default)(document).on("dataDeciderUpdated", function () {
@@ -42855,6 +42908,9 @@ document.body.addEventListener("click", function (e) {
                         case this.FEED_TYPES.list:
                             i.getListTimeline(u.listId, u.screenName, u.slug, a, o, null, t, n);
                             break;
+                        case this.FEED_TYPES.foryou:
+                            i.getForYouTimeline(a, o, null, t, n);
+                            break;
                         case this.FEED_TYPES.bookmarks:
                             i.getBookmarksTimeline(a, o, null, t, n);
                             break;
@@ -43706,6 +43762,19 @@ document.body.addEventListener("click", function (e) {
                     s,
                     {},
                     this.FEED_TYPES.home
+                );
+            }),
+            (TD.services.TwitterClient.prototype.getForYouTimeline = function (e, t, i, n, s) {
+                var params = { count: i || this.defaultRequestCount };
+                if (t) params.max_id = t;
+                this.makeTwitterCall(
+                    this.API_BASE_URL + "statuses/for_you_timeline.json",
+                    params,
+                    "GET",
+                    function (data) { return window.OTDForYou.processTimeline(data, this); },
+                    n,
+                    s,
+                    this.FEED_TYPES.foryou
                 );
             }),
             (TD.services.TwitterClient.prototype.getBookmarksTimeline = function (e, t, i, n, s) {
@@ -54072,6 +54141,7 @@ document.body.addEventListener("click", function (e) {
                     "/1.1/statuses/flag_possibly_sensitive.json",
                     "/1.1/statuses/following_timeline.json",
                     "/1.1/statuses/home_timeline.json",
+                    "/1.1/statuses/for_you_timeline.json",
                     "/1.1/statuses/lookup.json",
                     "/1.1/statuses/mentions_timeline.json",
                     "/1.1/statuses/oembed.json",

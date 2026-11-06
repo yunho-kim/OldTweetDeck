@@ -1,5 +1,9 @@
 ﻿# OldTweetDeck
 
+> **Experimental For You fork:** This branch adds a separate recommendations
+> column and retains chronological Home. See [FORYOU.md](FORYOU.md) for setup,
+> validation and limitations. Original project and MIT license credited below.
+
 Returns old TweetDeck!  
 
 > [!NOTE]

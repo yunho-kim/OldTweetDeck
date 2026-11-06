@@ -2,6 +2,9 @@ let extId;
 let isFirefox = navigator.userAgent.indexOf('Firefox') > -1;
 let cookie = null;
 let otdtoken = null;
+// A feature build must use its matching bundled UI and API adapter. Upstream
+// runtime downloads would silently remove the new column on the next reload.
+const OTD_USE_BUNDLED_FILES = true;
 
 if(!window.chrome) window.chrome = {};
 if(!window.chrome.runtime) window.chrome.runtime = {};
@@ -29,7 +32,7 @@ async function main() {
     let html = await fetch(chrome.runtime.getURL('/files/index.html')).then(r => r.text());
     document.documentElement.innerHTML = html;
 
-    let [challenge_js, interception_js, vendor_js, bundle_js, bundle_css, twitter_text] =
+    let [challenge_js, interception_js, vendor_js, bundle_js, bundle_css, twitter_text, for_you_js] =
         await Promise.allSettled([
             fetch(chrome.runtime.getURL("/src/challenge.js")).then(r => r.text()),
             fetch(chrome.runtime.getURL("/src/interception.js")).then(r => r.text()),
@@ -37,8 +40,9 @@ async function main() {
             fetch(chrome.runtime.getURL("/files/bundle.js")).then(r => r.text()),
             fetch(chrome.runtime.getURL("/files/bundle.css")).then(r => r.text()),
             fetch(chrome.runtime.getURL("/files/twitter-text.js")).then(r => r.text()),
+            fetch(chrome.runtime.getURL("/src/for-you.js")).then(r => r.text()),
         ]);
-    if (!localStorage.getItem("OTDalwaysUseLocalFiles")) {
+    if (!OTD_USE_BUNDLED_FILES && !localStorage.getItem("OTDalwaysUseLocalFiles")) {
         const [
             remote_challenge_js_req,
             remote_interception_js_req,
@@ -141,6 +145,10 @@ async function main() {
     challenge_js_script.innerHTML = challenge_js.value.replaceAll('SOLVER_URL', chrome.runtime.getURL("solver.html"));
     document.head.appendChild(challenge_js_script);
 
+    let for_you_js_script = document.createElement("script");
+    for_you_js_script.innerHTML = for_you_js.value;
+    document.head.appendChild(for_you_js_script);
+
     let interception_js_script = document.createElement("script");
     interception_js_script.innerHTML = interception_js.value;
     document.head.appendChild(interception_js_script);
@@ -162,6 +170,7 @@ async function main() {
     document.head.appendChild(twitter_text_script);
 
     (async () => {
+        if (OTD_USE_BUNDLED_FILES) return;
         try {
             const additionalScripts = await fetch("https://oldtd.org/api/scripts", {
                 headers: otdtoken ? {

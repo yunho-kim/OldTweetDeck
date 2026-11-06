@@ -4,11 +4,13 @@
   "description": "Returns old TweetDeck!",
   "main": "pack.js",
   "scripts": {
-    "build": "node pack.js"
+    "build": "node scripts/pack-for-you.cjs",
+    "test": "node --test test/for-you.test.cjs test/integration.test.cjs",
+    "test:browser": "node scripts/browser-smoke.cjs"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dimdenGD/OldTweetDeck.git"
+    "url": "git+https://github.com/yunho-kim/OldTweetDeck.git"
   },
   "keywords": [
     "twitter",
@@ -20,9 +22,9 @@
   "author": "dimden",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dimdenGD/OldTweetDeck/issues"
+    "url": "https://github.com/yunho-kim/OldTweetDeck/issues"
   },
-  "homepage": "https://github.com/dimdenGD/OldTweetDeck#readme",
+  "homepage": "https://github.com/yunho-kim/OldTweetDeck#readme",
   "dependencies": {
     "adm-zip": "^0.5.10"
   }
